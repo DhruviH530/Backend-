@@ -1,87 +1,45 @@
-// // creating https server with express
+const express = require('express')
+const app = express()
+const port = 3000
 
-const { profile } = require("console");
+// middleware loading app
+app.use (express.json());
 
-// // express.
-// // node default laibrary
+// creating middleware- loging,auth,validation
 
+// const logingMiddleware = function(req,res,next){
+//   console.log('login done')
+//   next();
+// }
 
-// const express = require("express");
+// app.use(logingMiddleware);
 
-// const app = express();
+// const authMiddleware = function(req,res,next){
+//   console.log('auth done')
+//   res.send("chalo ghar auth ho gya")
+  // next();
+// }
 
+// app.use(authMiddleware);
 
-// // function sum (n){
-// //     let ans = 0;
-// //     for(let i =1; i<=n; i++){
-// //         ans = ans +1
-// //     }
-// //     return ans;
-// // }
+// const validationMiddleware = function(req,res,next){
+//   console.log('validation done')
+//   next();
+// }
 
-// app.get("/" , function(req,res){
-//     // const n = req.query.n;
-//     // const ans = sum(n)
-//     // res.send("Hi dhruvii your ans is" + ans)
-// })
-
-
-// app.listen(3000)
-
-
-
+// app.use(validationMiddleware);
 
 
 
-const express = require("express");
-const app = express();
 
 
- const users  = [{
-    name:"dhruvi",
-    kindney :[{
-        healthy : false
-    }]
- }];
 
-  app.use(express.json());   
+app.get('/', (req, res) => {
+    console.log(req.body);
+  res.send('Hello World!')
+})
 
-
- app.get('/', function(req,res) {
-    // write logic here 
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})
  
-    const dhruvikidneys = users[0].kindney;
-    const numberOfKindneys = dhruvikidneys.length;
-    let numberOfHealthyKindneys = 0;
-    for (let i=0; i<dhruvikidneys.length; i++){
-            if(dhruvikidneys[i].healthy){
-                numberOfHealthyKindneys = numberOfHealthyKindneys +1
-            }
-    }
-
-    const numberOfUnhealthyKindney = numberOfKindneys - numberOfHealthyKindneys;
-    res.json({
-        numberOfKindneys,
-        numberOfHealthyKindneys,
-        numberOfUnhealthyKindney
-    })
-})
-
-
-app.post ('/' , function (req,res){
-    const isHealthy = req.body.isHealthy;
-    users[0].kindney.push({
-        healthy:isHealthy
-    })
-
-    res.json({
-        msg:"Done ! Thank you "
-    })
-})
-
-
-
-
-
-app.listen(3000);
-
